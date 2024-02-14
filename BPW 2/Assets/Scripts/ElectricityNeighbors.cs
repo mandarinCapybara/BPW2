@@ -5,12 +5,11 @@ using UnityEngine.VFX;
 public class ElectricityNeighbors : MonoBehaviour
 {
     [SerializeField] private bool debugMode;
-    private List<GameObject> neighbors;
+    private List<NeighborNodes> nodes;
     [SerializeField] private int distanceChecked;
     [SerializeField] private float bounceModifier;
     [SerializeField] private GameObject electricityEffect;
 
-    private Vector3 storedPosition;
     private List<GameObject> electricityObjects;
 
     void Start()
@@ -20,28 +19,31 @@ public class ElectricityNeighbors : MonoBehaviour
 
     private void Update()
     {
-        if (debugMode) // all debug code
+        foreach(NeighborNodes n in nodes)
         {
-            DebugLines();
-        }
-
-        if(transform.position != storedPosition)
-        {
-            CalculateElectricity();
+            if(n.currentNode.transform.position != n.storedPosition)
+            {
+                CalculateElectricity();
+            }
         }
     }
 
     public void CalculateElectricity()
     {
-        storedPosition = transform.position;
-        GetNeighbors();
-
         ClearElectricityObjects();
 
-        foreach (GameObject neighbor in neighbors)
-        {
-            SetElectricity(neighbor.transform);
-        }
+        nodes = new List<NeighborNodes>();
+        AddNode(gameObject);
+    }
+    public void AddNode(GameObject nodeObject)
+    {
+        NeighborNodes n = new NeighborNodes();
+        nodes.Add(n);
+        n.mainSystem = this;
+        n.currentNode = nodeObject;
+        n.SetStoredPosition();
+
+        n.GetNewNeighbors();
     }
 
     private void ClearElectricityObjects()
@@ -56,58 +58,83 @@ public class ElectricityNeighbors : MonoBehaviour
         electricityObjects = new List<GameObject>();
     }
 
-    // Compares every coil to the max distance to connect
-    private void GetNeighbors()
+
+    [System.Serializable]
+    public class NeighborNodes
     {
-        neighbors = new List<GameObject>();
+        public ElectricityNeighbors mainSystem;
+        public GameObject currentNode;
+        public List<GameObject> connectedNodes;
+        public Vector3 storedPosition;
 
-        GameObject[] coils = GameObject.FindGameObjectsWithTag("Coil Alive");
-
-        foreach (GameObject coil in coils)
+        public void SetStoredPosition()
         {
-            if (Vector3.Distance(transform.position, coil.transform.position) < distanceChecked)
+            storedPosition = currentNode.transform.position;
+        }
+
+        public void GetNewNeighbors()
+        {
+            connectedNodes = new List<GameObject>();
+
+            GameObject[] coils = GameObject.FindGameObjectsWithTag("Coil Alive");
+
+            foreach (GameObject coil in coils)
             {
-                if (coil != gameObject)
-                    neighbors.Add(coil);
+                if (Vector3.Distance(currentNode.transform.position, coil.transform.position) < mainSystem.distanceChecked)
+                {
+                    if (coil != currentNode)
+                    {
+                        bool locked = false;
+                        foreach(NeighborNodes n in mainSystem.nodes)
+                        {
+                            if(n.currentNode == coil)
+                            {
+                                locked = true;
+                                break;
+                            }
+                        }
+                        if(!locked)
+                        connectedNodes.Add(coil);
+                    }
+                }
+            }
+
+            foreach(GameObject neighbor in connectedNodes)
+            {
+                mainSystem.AddNode(neighbor);
+                SetElectricity(neighbor.transform);
             }
         }
-    }
-
+        
     private void SetElectricity(Transform neigbor)
-    {
-        GameObject obj = Instantiate(electricityEffect);
-        electricityObjects.Add(obj);
-
-        VisualEffect VFX = obj.GetComponent<VisualEffect>();
-
-        VFX.SetVector3("PositionA", transform.position);
-        VFX.SetVector3("PositionB", neigbor.position);
-
-        // distance between this coil and its neighbor
-        float distance = Vector3.Distance(transform.position, neigbor.position);
-
-        float bounceHeight = distance / bounceModifier;
-
-        // gets the medians for every node in the bezier curve
-        Vector3 median = GetMedian.Median(transform.position, neigbor.position);
-
-        Vector3 bounceA = GetMedian.Median(transform.position, median);
-        Vector3 bounceB = GetMedian.Median(neigbor.position, median);
-
-        // applies an extra offset to create more of an illusion of electricity
-        #region apply bounce
-        bounceA.y += bounceHeight;
-        bounceB.y -= bounceHeight;
-        #endregion
-
-        VFX.SetVector3("BounceA", bounceA);
-        VFX.SetVector3("BounceB", bounceB);
-    }
-    private void DebugLines()
-    {
-        foreach(GameObject n in neighbors)
         {
-            Debug.DrawLine(transform.position, n.transform.position, Color.cyan);
+            GameObject obj = Instantiate(mainSystem.electricityEffect);
+            mainSystem.electricityObjects.Add(obj);
+
+            VisualEffect VFX = obj.GetComponent<VisualEffect>();
+
+            VFX.SetVector3("PositionA", currentNode.transform.position);
+            VFX.SetVector3("PositionB", neigbor.position);
+
+            // distance between this coil and its neighbor
+            float distance = Vector3.Distance(currentNode.transform.position, neigbor.position);
+
+            float bounceHeight = distance / mainSystem.bounceModifier;
+
+            // gets the medians for every node in the bezier curve
+            Vector3 median = GetMedian.Median(currentNode.transform.position, neigbor.position);
+
+            Vector3 bounceA = GetMedian.Median(currentNode.transform.position, median);
+            Vector3 bounceB = GetMedian.Median(neigbor.position, median);
+
+            // applies an extra offset to create more of an illusion of electricity
+            #region apply bounce
+            bounceA.y += bounceHeight;
+            bounceB.y -= bounceHeight;
+            #endregion
+
+            VFX.SetVector3("BounceA", bounceA);
+            VFX.SetVector3("BounceB", bounceB);
         }
     }
 }
