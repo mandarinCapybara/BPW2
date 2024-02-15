@@ -11,17 +11,43 @@ public class ElectricityNeighbors : MonoBehaviour
     [SerializeField] private GameObject electricityEffect;
 
     private List<GameObject> electricityObjects;
+    GameObject[] coils;
+    private List<GameObject> neighbors;
 
-    void Start()
+    private void Start()
     {
-        CalculateElectricity();
+        neighbors = new List<GameObject>();
+        coils = GameObject.FindGameObjectsWithTag("Coil Alive");
+        InvokeRepeating("SetPotentialNeighbors", 0, 0.5f);
+    }
+
+    private void SetPotentialNeighbors()
+    {
+        foreach (GameObject g in coils)
+        {
+            if (Vector3.Distance(transform.position, g.transform.position) < distanceChecked)
+            {
+                if (!neighbors.Contains(g))
+                {
+                    neighbors.Add(g);
+                    CalculateElectricity();
+                }
+            }
+            else
+            {
+                if (neighbors.Contains(g))
+                {
+                    neighbors.Remove(g);
+                }
+            }
+        }
     }
 
     private void Update()
     {
-        foreach(NeighborNodes n in nodes)
+        foreach (NeighborNodes n in nodes)
         {
-            if(n.currentNode.transform.position != n.storedPosition)
+            if (n.currentNode.transform.position != n.storedPosition)
             {
                 CalculateElectricity();
             }
@@ -48,9 +74,9 @@ public class ElectricityNeighbors : MonoBehaviour
 
     private void ClearElectricityObjects()
     {
-        if(electricityObjects != null)
+        if (electricityObjects != null)
         {
-            foreach(GameObject obj in electricityObjects)
+            foreach (GameObject obj in electricityObjects)
             {
                 Destroy(obj);
             }
@@ -85,28 +111,28 @@ public class ElectricityNeighbors : MonoBehaviour
                     if (coil != currentNode)
                     {
                         bool locked = false;
-                        foreach(NeighborNodes n in mainSystem.nodes)
+                        foreach (NeighborNodes n in mainSystem.nodes)
                         {
-                            if(n.currentNode == coil)
+                            if (n.currentNode == coil)
                             {
                                 locked = true;
                                 break;
                             }
                         }
-                        if(!locked)
-                        connectedNodes.Add(coil);
+                        if (!locked)
+                            connectedNodes.Add(coil);
                     }
                 }
             }
 
-            foreach(GameObject neighbor in connectedNodes)
+            foreach (GameObject neighbor in connectedNodes)
             {
                 mainSystem.AddNode(neighbor);
                 SetElectricity(neighbor.transform);
             }
         }
-        
-    private void SetElectricity(Transform neigbor)
+
+        private void SetElectricity(Transform neigbor)
         {
             GameObject obj = Instantiate(mainSystem.electricityEffect);
             mainSystem.electricityObjects.Add(obj);
