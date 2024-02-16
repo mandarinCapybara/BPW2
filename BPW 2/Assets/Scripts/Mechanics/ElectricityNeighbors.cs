@@ -42,6 +42,10 @@ public class ElectricityNeighbors : MonoBehaviour
                 if (!neighbors.Contains(g))
                 {
                     neighbors.Add(g);
+                    if (g.GetComponent<CoilElectrified>())
+                    {
+                        g.GetComponent<CoilElectrified>().SetElectified(electrify);
+                    }
                     CalculateElectricity();
                 }
             }
@@ -49,6 +53,10 @@ public class ElectricityNeighbors : MonoBehaviour
             {
                 if (neighbors.Contains(g))
                 {
+                    if (g.GetComponent<CoilElectrified>())
+                    {
+                        g.GetComponent<CoilElectrified>().SetElectified(false);
+                    }
                     neighbors.Remove(g);
                 }
             }
