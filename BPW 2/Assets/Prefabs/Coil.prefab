@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1303e8d9d366b34f862234b2e6842fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMode: 1
+  debugMode: 0
   electrify: 1
   distanceChecked: 5
   shockMask:

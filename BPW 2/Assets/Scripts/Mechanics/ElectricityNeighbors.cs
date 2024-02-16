@@ -30,6 +30,7 @@ public class ElectricityNeighbors : MonoBehaviour
         neighbors = new List<GameObject>();
         coils = GameObject.FindGameObjectsWithTag("Coil Alive");
         InvokeRepeating("SetPotentialNeighbors", 0, 0.5f);
+        InvokeRepeating("CalculateElectricity", 0, 1f);
         SetHitboxes(new List<ElectricityHitbox>());
     }
 
@@ -42,11 +43,30 @@ public class ElectricityNeighbors : MonoBehaviour
                 if (!neighbors.Contains(g))
                 {
                     neighbors.Add(g);
-                    if (g.GetComponent<CoilElectrified>())
-                    {
-                        g.GetComponent<CoilElectrified>().SetElectified(electrify);
-                    }
                     CalculateElectricity();
+                }
+            }
+            else if (Vector3.Distance(transform.position, g.transform.position) < distanceChecked * 2.5f)
+            {
+                if (!neighbors.Contains(g))
+                {
+                    bool found = false;
+                    if(nodes != null)
+                    {
+                        foreach (NeighborNodes n in nodes)
+                        {
+                            if (n.currentNode == g)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    neighbors.Add(g);
+                    if (!found)
+                    {
+                        CalculateElectricity();
+                    }
                 }
             }
             else
@@ -113,6 +133,14 @@ public class ElectricityNeighbors : MonoBehaviour
         ClearElectricityObjects();
         SetHitboxes(new List<ElectricityHitbox>());
         nodes = new List<NeighborNodes>();
+        
+        foreach(GameObject n in neighbors)
+        {
+            if (n.GetComponent<CoilElectrified>())
+            {
+                n.GetComponent<CoilElectrified>().SetElectified(electrify);
+            }
+        }
 
         if (electrify)
         {
@@ -271,6 +299,9 @@ public class ElectricityNeighbors : MonoBehaviour
                     Gizmos.DrawWireSphere(pos, distanceChecked);
                 }
             }
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, distanceChecked * 2f);
         }
     }
 }
