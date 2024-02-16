@@ -97,6 +97,11 @@ public class Launchpad : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        move = true;
+    }
+
     public void AddRigidbody(Rigidbody body)
     {
         rigidbodies.Add(body);

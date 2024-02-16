@@ -35,6 +35,15 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ChangeTime"",
+                    ""type"": ""Button"",
+                    ""id"": ""fa31e2cc-493f-4a55-8565-fae9860c3175"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,17 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
                     ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2c014e2-84c0-42bc-8628-39372563f382"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeTime"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -101,6 +121,7 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
+        m_Player_ChangeTime = m_Player.FindAction("ChangeTime", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,11 +184,13 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Walk;
+    private readonly InputAction m_Player_ChangeTime;
     public struct PlayerActions
     {
         private @KeyboardInput m_Wrapper;
         public PlayerActions(@KeyboardInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Walk => m_Wrapper.m_Player_Walk;
+        public InputAction @ChangeTime => m_Wrapper.m_Player_ChangeTime;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -180,6 +203,9 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
             @Walk.started += instance.OnWalk;
             @Walk.performed += instance.OnWalk;
             @Walk.canceled += instance.OnWalk;
+            @ChangeTime.started += instance.OnChangeTime;
+            @ChangeTime.performed += instance.OnChangeTime;
+            @ChangeTime.canceled += instance.OnChangeTime;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -187,6 +213,9 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
             @Walk.started -= instance.OnWalk;
             @Walk.performed -= instance.OnWalk;
             @Walk.canceled -= instance.OnWalk;
+            @ChangeTime.started -= instance.OnChangeTime;
+            @ChangeTime.performed -= instance.OnChangeTime;
+            @ChangeTime.canceled -= instance.OnChangeTime;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -207,5 +236,6 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnWalk(InputAction.CallbackContext context);
+        void OnChangeTime(InputAction.CallbackContext context);
     }
 }

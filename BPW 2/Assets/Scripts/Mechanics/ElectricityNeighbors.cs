@@ -30,7 +30,7 @@ public class ElectricityNeighbors : MonoBehaviour
         neighbors = new List<GameObject>();
         coils = GameObject.FindGameObjectsWithTag("Coil Alive");
         InvokeRepeating("SetPotentialNeighbors", 0, 0.5f);
-        InvokeRepeating("CalculateElectricity", 0, 1f);
+        //InvokeRepeating("CalculateElectricity", 0, 1.5f);
         SetHitboxes(new List<ElectricityHitbox>());
     }
 
@@ -43,6 +43,7 @@ public class ElectricityNeighbors : MonoBehaviour
                 if (!neighbors.Contains(g))
                 {
                     neighbors.Add(g);
+                    Debug.Log("hello");
                     CalculateElectricity();
                 }
             }
@@ -65,6 +66,7 @@ public class ElectricityNeighbors : MonoBehaviour
                     neighbors.Add(g);
                     if (!found)
                     {
+                        Debug.Log("hi");
                         CalculateElectricity();
                     }
                 }
@@ -250,6 +252,7 @@ public class ElectricityNeighbors : MonoBehaviour
         {
             GameObject obj = Instantiate(mainSystem.electricityEffect);
             mainSystem.electricityObjects.Add(obj);
+            obj.transform.SetParent(currentNode.transform);
 
             VisualEffect VFX = obj.GetComponent<VisualEffect>();
 

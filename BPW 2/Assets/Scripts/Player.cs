@@ -68,6 +68,11 @@ public class Player : MonoBehaviour
             {
                 MovePlayer(GetMoveDirection());
             }
+            if(playerInput.Player.ChangeTime != null)
+            {
+                if(playerInput.Player.ChangeTime.WasPressedThisFrame())
+                TimeManager.instance.ChangeTime();
+            }
 
             MoveCamera();
 

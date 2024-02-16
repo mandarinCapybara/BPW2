@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\KeyboardInput.cs" />
     <Compile Include="Assets\Scripts\Mechanics\ElectricityNeighbors.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\TimeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
