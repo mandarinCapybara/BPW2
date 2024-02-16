@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 5447468570131703173}
   - component: {fileID: 1380931240576610376}
   - component: {fileID: 153048560125324156}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -566,7 +566,6 @@ MonoBehaviour:
   cameraPivot: {fileID: 6523034859248878110}
   XSensitivity: 450
   YSensitivity: 500
-  CameraAdjustSpeed: 5
   VerticalTiltTopLimit: 40
   VerticalTiltBottomLimit: -60
   walkSpeed: 6.5

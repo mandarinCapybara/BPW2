@@ -4,21 +4,33 @@ using UnityEngine.VFX;
 
 public class ElectricityNeighbors : MonoBehaviour
 {
+    [Header("Debug values")]
     [SerializeField] private bool debugMode;
-    private List<NeighborNodes> nodes;
-    [SerializeField] private int distanceChecked;
-    [SerializeField] private float bounceModifier;
-    [SerializeField] private GameObject electricityEffect;
 
-    private List<GameObject> electricityObjects;
+    [Header("In-game values")]
+    [SerializeField] private bool electrify;
+
     GameObject[] coils;
-    private List<GameObject> neighbors;
 
+    private List<NeighborNodes> nodes;
+    private List<ElectricityHitbox> hitboxes;
+
+    [SerializeField] private float distanceChecked;
+
+    private List<GameObject> neighbors;
+    [SerializeField] private LayerMask shockMask;
+
+    [Header("VFX values")]
+    [SerializeField] private float bounceModifier;
+    private List<GameObject> electricityObjects;
+
+    [SerializeField] private GameObject electricityEffect;
     private void Start()
     {
         neighbors = new List<GameObject>();
         coils = GameObject.FindGameObjectsWithTag("Coil Alive");
         InvokeRepeating("SetPotentialNeighbors", 0, 0.5f);
+        SetHitboxes(new List<ElectricityHitbox>());
     }
 
     private void SetPotentialNeighbors()
@@ -45,6 +57,7 @@ public class ElectricityNeighbors : MonoBehaviour
 
     private void Update()
     {
+        if(nodes != null)
         foreach (NeighborNodes n in nodes)
         {
             if (n.currentNode.transform.position != n.storedPosition)
@@ -52,14 +65,51 @@ public class ElectricityNeighbors : MonoBehaviour
                 CalculateElectricity();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SetElectricity(!electrify);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        CheckPlayerHit();
+    }
+    public void SetElectricity(bool value)
+    {
+        electrify = value;
+        CalculateElectricity();
+    }
+
+
+    private void CheckPlayerHit()
+    {
+        foreach (ElectricityHitbox hb in hitboxes)
+        {
+            if (debugMode)
+            {
+                Debug.DrawLine(hb.StartPosition, hb.EndPosition, Color.magenta);
+            }
+
+            if (Physics.Linecast(hb.StartPosition, hb.EndPosition, out RaycastHit hit, shockMask))
+            {
+                Debug.Log(hit.transform.name);
+            }
+
+        }
     }
 
     public void CalculateElectricity()
     {
         ClearElectricityObjects();
-
+        SetHitboxes(new List<ElectricityHitbox>());
         nodes = new List<NeighborNodes>();
-        AddNode(gameObject);
+
+        if (electrify)
+        {
+            AddNode(gameObject);
+        }
     }
     public void AddNode(GameObject nodeObject)
     {
@@ -84,6 +134,22 @@ public class ElectricityNeighbors : MonoBehaviour
         electricityObjects = new List<GameObject>();
     }
 
+
+    public List<ElectricityHitbox> GetHitboxes()
+    {
+        return hitboxes;
+    }
+
+    public void SetHitboxes(List<ElectricityHitbox> newHitboxes)
+    {
+        ;
+        hitboxes = newHitboxes;
+    }
+
+    public void AddHitbox(ElectricityHitbox newHitbox)
+    {
+        hitboxes.Add(newHitbox);
+    }
 
     [System.Serializable]
     public class NeighborNodes
@@ -124,11 +190,23 @@ public class ElectricityNeighbors : MonoBehaviour
                     }
                 }
             }
+            SetNewHitbox();
 
             foreach (GameObject neighbor in connectedNodes)
             {
                 mainSystem.AddNode(neighbor);
                 SetElectricity(neighbor.transform);
+            }
+        }
+
+        private void SetNewHitbox()
+        {
+            foreach (GameObject neighbor in connectedNodes)
+            {
+                ElectricityHitbox hb = new ElectricityHitbox();
+                hb.StartPosition = currentNode.transform.position;
+                hb.EndPosition = neighbor.transform.position;
+                mainSystem.AddHitbox(hb);
             }
         }
 
@@ -161,6 +239,30 @@ public class ElectricityNeighbors : MonoBehaviour
 
             VFX.SetVector3("BounceA", bounceA);
             VFX.SetVector3("BounceB", bounceB);
+        }
+    }
+
+    [System.Serializable]
+    public class ElectricityHitbox
+    {
+        public Vector3 StartPosition;
+        public Vector3 EndPosition;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (debugMode)
+        {
+            Gizmos.color = Color.cyan;
+            if (nodes != null)
+            {
+                foreach (NeighborNodes n in nodes)
+                {
+                    Vector3 pos = n.storedPosition;
+
+                    Gizmos.DrawWireSphere(pos, distanceChecked);
+                }
+            }
         }
     }
 }

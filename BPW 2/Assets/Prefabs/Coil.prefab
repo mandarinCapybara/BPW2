@@ -118,8 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1303e8d9d366b34f862234b2e6842fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMode: 0
-  distanceChecked: 4
+  debugMode: 1
+  electrify: 1
+  distanceChecked: 5
+  shockMask:
+    serializedVersion: 2
+    m_Bits: 8
   bounceModifier: 8
   electricityEffect: {fileID: 917729749210814710, guid: 8eff419658718be48a9c82081477896d,
     type: 3}

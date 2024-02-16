@@ -60,8 +60,8 @@ public class Player : MonoBehaviour
             Application.Quit();
         }
 
-        Cursor.lockState = CursorLockMode.Locked;
-
+        Cursor.lockState = CursorLockMode.Locked; 
+        
         if (!freezePlayer)
         {
             if (playerInput.Player.Walk != null)
@@ -141,7 +141,6 @@ public class Player : MonoBehaviour
     private void MovePlayer(Vector3 direction)
     {
         HandleSpeed();
-        Debug.Log(direction);
         transform.position += (direction * currentSpeed * Time.deltaTime);
     }
 
