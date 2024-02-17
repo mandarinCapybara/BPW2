@@ -11,7 +11,7 @@ public class TimeManager : MonoBehaviour
         instance = this; 
     }
 
-    [SerializeField] private bool present;
+    [SerializeField] private bool present = true;
 
     [SerializeField] private GameObject presentObjects;
     [SerializeField] private GameObject pastObjects;

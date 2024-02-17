@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -25,6 +26,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float groundCheckDistance = 0.25f;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] PlayerState playerState;
+
+    [Header("Animation")]
+    [SerializeField] private Animator armR;
+    [SerializeField] private Animator armL;
+    [SerializeField] private Animator camShake;
+    [SerializeField] private float timeSwitchDelay;
+    private bool canTimeSwitch = true;
     public enum PlayerState
     {
         Idle,
@@ -68,10 +76,12 @@ public class Player : MonoBehaviour
             {
                 MovePlayer(GetMoveDirection());
             }
-            if(playerInput.Player.ChangeTime != null)
+            if(playerInput.Player.ChangeTime != null && canTimeSwitch)
             {
-                if(playerInput.Player.ChangeTime.WasPressedThisFrame())
-                TimeManager.instance.ChangeTime();
+                if (playerInput.Player.ChangeTime.WasPressedThisFrame())
+                {
+                    StartCoroutine(TimeswitchAnimation());
+                }
             }
 
             MoveCamera();
@@ -178,4 +188,18 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
+
+    private IEnumerator TimeswitchAnimation()
+    {
+        canTimeSwitch = false;
+        armR.SetBool("ChangeTime", true);
+        armL.SetBool("ChangeTime", true);
+        camShake.SetBool("ChangeTime", true);
+        yield return new WaitForSeconds(timeSwitchDelay);
+        armR.SetBool("ChangeTime", false);
+        armL.SetBool("ChangeTime", false);
+        camShake.SetBool("ChangeTime", false);
+        TimeManager.instance.ChangeTime();
+        canTimeSwitch = true;
+    }
 }
