@@ -135,6 +135,12 @@ public class Launchpad : MonoBehaviour
     private void OnEnable()
     {
         move = true;
+        ClearRigidbodies();
+    }
+
+    public void ClearRigidbodies()
+    {
+        rigidbodies = new List<Rigidbody>();
     }
 
     public void AddRigidbody(Rigidbody body)

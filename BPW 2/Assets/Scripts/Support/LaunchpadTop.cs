@@ -5,7 +5,6 @@ using UnityEngine;
 public class LaunchpadTop : MonoBehaviour
 {
     private Launchpad launcher;
-    [SerializeField] private LayerMask mask;
     private void Start()
     {
         launcher = transform.parent.gameObject.GetComponent<Launchpad>();
