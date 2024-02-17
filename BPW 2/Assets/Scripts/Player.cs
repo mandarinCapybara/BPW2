@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator armR;
     [SerializeField] private Animator armL;
     [SerializeField] private Animator camShake;
+    [SerializeField] private Animator camVFX;
     [SerializeField] private float timeSwitchDelay;
     private bool canTimeSwitch = true;
     public enum PlayerState
@@ -195,11 +196,15 @@ public class Player : MonoBehaviour
         armR.SetBool("ChangeTime", true);
         armL.SetBool("ChangeTime", true);
         camShake.SetBool("ChangeTime", true);
-        yield return new WaitForSeconds(timeSwitchDelay);
+        camVFX.SetBool("ChangeTime", true);
+        yield return new WaitForEndOfFrame();
         armR.SetBool("ChangeTime", false);
         armL.SetBool("ChangeTime", false);
         camShake.SetBool("ChangeTime", false);
+        camVFX.SetBool("ChangeTime", false);
+        yield return new WaitForSeconds(timeSwitchDelay);
         TimeManager.instance.ChangeTime();
+        yield return new WaitForSeconds(1.5f);
         canTimeSwitch = true;
     }
 }

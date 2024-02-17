@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 5443922049156321286}
   - component: {fileID: 5465029655763539556}
   - component: {fileID: 8715134180460015204}
-  - component: {fileID: 3671017446564922150}
-  - component: {fileID: 1862499728713432307}
+  - component: {fileID: 3773777848557662497}
   m_Layer: 0
   m_Name: Coil
-  m_TagString: Coil Alive
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,9 +29,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 35, y: 35, z: 35}
+  m_LocalScale: {x: 200, y: 200, z: 200}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 5317689394703066354}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &5465029655763539556
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1138866442205886578}
-  m_Mesh: {fileID: 6935877506589290101, guid: a0a3dc2fa4e86d44d97fc0ee5618f536, type: 3}
+  m_Mesh: {fileID: 4573328879971975030, guid: 40f75ccb200d50142a741eed38f8aef4, type: 3}
 --- !u!23 &8715134180460015204
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -53,7 +53,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -63,7 +63,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b1983bbf4c162144bb1d2b6927a0bcc7, type: 2}
+  - {fileID: 2100000, guid: 7eac12ebf4605a04aae2340cf896b1bf, type: 2}
+  - {fileID: 2100000, guid: db0ed72074fd83b4c89f75ac51348f0a, type: 2}
+  - {fileID: 2100000, guid: 6aef036504142f347b8a6625134feb3c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3671017446564922150
-SphereCollider:
+--- !u!65 &3773777848557662497
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,15 +106,47 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.01
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1862499728713432307
+  m_Size: {x: 0.002, y: 0.002, z: 0.012365723}
+  m_Center: {x: 0, y: 0, z: 0.0061828615}
+--- !u!1 &3535747199570388022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5317689394703066354}
+  - component: {fileID: 1569813526589160349}
+  m_Layer: 0
+  m_Name: Coil_Shock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5317689394703066354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3535747199570388022}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0000000011920929, z: 0.011250001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5443922049156321286}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1569813526589160349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1138866442205886578}
+  m_GameObject: {fileID: 3535747199570388022}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1303e8d9d366b34f862234b2e6842fd, type: 3}

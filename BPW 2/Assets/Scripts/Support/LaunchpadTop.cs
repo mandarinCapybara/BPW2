@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class LaunchpadTop : MonoBehaviour
 {
-    Launchpad launcher;
+    private Launchpad launcher;
+    [SerializeField] private LayerMask mask;
     private void Start()
     {
         launcher = transform.parent.gameObject.GetComponent<Launchpad>();
@@ -12,13 +13,13 @@ public class LaunchpadTop : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<Rigidbody>() != null)
-            launcher.AddRigidbody(other.GetComponent<Rigidbody>());
+            if (other.GetComponent<Rigidbody>() != null)
+                launcher.AddRigidbody(other.GetComponent<Rigidbody>());
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<Rigidbody>() != null)
-            launcher.RemoveRigidbody(other.GetComponent<Rigidbody>());
+            if (other.GetComponent<Rigidbody>() != null)
+                launcher.RemoveRigidbody(other.GetComponent<Rigidbody>());
     }
 }

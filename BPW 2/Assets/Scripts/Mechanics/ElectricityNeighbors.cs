@@ -43,7 +43,6 @@ public class ElectricityNeighbors : MonoBehaviour
                 if (!neighbors.Contains(g))
                 {
                     neighbors.Add(g);
-                    Debug.Log("hello");
                     CalculateElectricity();
                 }
             }
@@ -66,7 +65,6 @@ public class ElectricityNeighbors : MonoBehaviour
                     neighbors.Add(g);
                     if (!found)
                     {
-                        Debug.Log("hi");
                         CalculateElectricity();
                     }
                 }

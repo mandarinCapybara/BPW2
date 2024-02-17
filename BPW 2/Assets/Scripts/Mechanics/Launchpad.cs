@@ -22,6 +22,10 @@ public class Launchpad : MonoBehaviour
     [SerializeField] private CoilElectrified targetSource;
     [SerializeField] private GameObject launcher;
 
+    [SerializeField] private Material LED_on;
+    [SerializeField] private Material LED_off;
+    [SerializeField] private Renderer baseRenderer;
+    [SerializeField] private Renderer pillarRenderer;
     private void Start()
     {
         StartCoroutine(Delay(delayUp));
@@ -40,6 +44,31 @@ public class Launchpad : MonoBehaviour
     private void SetElectrified()
     {
         electrified = targetSource.GetElectrified();
+
+        List<Material> materialsBase = new List<Material>();
+        foreach (Material m in baseRenderer.materials)
+        {
+            materialsBase.Add(m);
+        }
+        List<Material> materialsPillar = new List<Material>();
+        foreach (Material m in pillarRenderer.materials)
+        {
+            materialsPillar.Add(m);
+        }
+
+        if (electrified)
+        {
+            materialsBase[4] = LED_on;
+            materialsPillar[2] = LED_on;
+        }
+        else
+        {
+            materialsBase[4] = LED_off;
+            materialsPillar[2] = LED_off;
+        }
+
+        baseRenderer.SetMaterials(materialsBase);
+        pillarRenderer.SetMaterials(materialsPillar);
     }
 
     private void MoveLaunchpad()
@@ -47,7 +76,7 @@ public class Launchpad : MonoBehaviour
         float target;
 
         if (goUp) target = length;
-        else target = 0;
+        else target = 0.25f;
 
         if(Mathf.Abs(launcher.transform.localPosition.y - target) > 0.01f)
         {
@@ -63,7 +92,13 @@ public class Launchpad : MonoBehaviour
             }
             else
             {
-                launcher.transform.localPosition = Vector3.MoveTowards(launcher.transform.localPosition, Vector3.zero, velocityLauncherDown * Time.deltaTime);
+                Vector3 targetPos = new()
+                {
+                    x = 0,
+                    y = 0.25f,
+                    z = 0
+                };
+                launcher.transform.localPosition = Vector3.MoveTowards(launcher.transform.localPosition, targetPos, velocityLauncherDown * Time.deltaTime);
             }
         }
         else
