@@ -22,6 +22,11 @@ public class Wire : MonoBehaviour
         }
     }
 
+    public bool IsPowered()
+    {
+        return powered;
+    }
+
     private void UpdateMaterials()
     {
         poweredStored = powered;

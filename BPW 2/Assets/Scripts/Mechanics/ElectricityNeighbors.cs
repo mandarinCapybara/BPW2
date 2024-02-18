@@ -9,6 +9,8 @@ public class ElectricityNeighbors : MonoBehaviour
 
     [Header("In-game values")]
     [SerializeField] private bool electrify;
+    private bool storedElectrify;
+    [SerializeField] private Wire connectedWire;
 
     GameObject[] coils;
 
@@ -16,6 +18,7 @@ public class ElectricityNeighbors : MonoBehaviour
     private List<ElectricityHitbox> hitboxes;
 
     [SerializeField] private float distanceChecked;
+    [SerializeField] private float maxNeighborDistance;
 
     private List<GameObject> neighbors;
     [SerializeField] private LayerMask shockMask;
@@ -46,7 +49,7 @@ public class ElectricityNeighbors : MonoBehaviour
                     CalculateElectricity();
                 }
             }
-            else if (Vector3.Distance(transform.position, g.transform.position) < distanceChecked * 2.5f)
+            else if (Vector3.Distance(transform.position, g.transform.position) < maxNeighborDistance)
             {
                 if (!neighbors.Contains(g))
                 {
@@ -94,9 +97,17 @@ public class ElectricityNeighbors : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+
+        if (debugMode && Input.GetKeyDown(KeyCode.Space))
         {
             SetElectricity(!electrify);
+        }
+
+        if(connectedWire != null)
+        {
+            if(storedElectrify != connectedWire.IsPowered())
+                SetElectricity(connectedWire.IsPowered());
         }
     }
 
@@ -107,6 +118,7 @@ public class ElectricityNeighbors : MonoBehaviour
     public void SetElectricity(bool value)
     {
         electrify = value;
+        storedElectrify = electrify;
         CalculateElectricity();
     }
 
@@ -132,15 +144,20 @@ public class ElectricityNeighbors : MonoBehaviour
     {
         ClearElectricityObjects();
         SetHitboxes(new List<ElectricityHitbox>());
-        nodes = new List<NeighborNodes>();
-        
-        foreach(GameObject n in neighbors)
+
+        if(nodes != null)
         {
-            if (n.GetComponent<CoilElectrified>())
+            foreach(NeighborNodes n in nodes)
             {
-                n.GetComponent<CoilElectrified>().SetElectified(electrify);
+                if(n.currentNode.GetComponent<CoilElectrified>() != null)
+                {
+                    n.currentNode.GetComponent<CoilElectrified>().SetElectified(false);
+                }
             }
         }
+
+        nodes = new List<NeighborNodes>();
+
 
         if (electrify)
         {
@@ -154,6 +171,11 @@ public class ElectricityNeighbors : MonoBehaviour
         n.mainSystem = this;
         n.currentNode = nodeObject;
         n.SetStoredPosition();
+
+        if (n.currentNode.GetComponent<CoilElectrified>() != null)
+        {
+            n.currentNode.GetComponent<CoilElectrified>().SetElectified(true);
+        }
 
         n.GetNewNeighbors();
     }
@@ -302,7 +324,7 @@ public class ElectricityNeighbors : MonoBehaviour
             }
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, distanceChecked * 2f);
+            Gizmos.DrawWireSphere(transform.position, maxNeighborDistance);
         }
     }
 }
