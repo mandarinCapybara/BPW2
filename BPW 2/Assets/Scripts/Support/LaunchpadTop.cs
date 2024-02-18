@@ -21,4 +21,5 @@ public class LaunchpadTop : MonoBehaviour
             if (other.GetComponent<Rigidbody>() != null)
                 launcher.RemoveRigidbody(other.GetComponent<Rigidbody>());
     }
+
 }

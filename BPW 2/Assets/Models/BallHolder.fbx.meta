@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 40f75ccb200d50142a741eed38f8aef4
+guid: 7bd335db5fb35004e9431dfdb25433e4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,23 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: CoilBase
-    second: {fileID: 2100000, guid: 7eac12ebf4605a04aae2340cf896b1bf, type: 2}
+      name: BallHolder
+    second: {fileID: 2100000, guid: 0b42d40c319563a41a32aa82ece252af, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: CoilBase2
-    second: {fileID: 2100000, guid: db0ed72074fd83b4c89f75ac51348f0a, type: 2}
+      name: BallHolder2
+    second: {fileID: 2100000, guid: 354aeac148c64284ebaf434ad7290c05, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Copper
-    second: {fileID: 2100000, guid: 6aef036504142f347b8a6625134feb3c, type: 2}
+      name: BallHolderPole
+    second: {fileID: 2100000, guid: 1b0ed1fa0940bab46be055b41ae4f84d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material
-    second: {fileID: 2100000, guid: db0ed72074fd83b4c89f75ac51348f0a, type: 2}
+    second: {fileID: 2100000, guid: 6aef036504142f347b8a6625134feb3c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -41,6 +41,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 24d6b8b912d05eb4abe84324ed163887, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Normal_Map:
+        m_Texture: {fileID: 2800000, guid: 5c1a6749973dfab48988fc615b58e615, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats: []
     m_Colors: []
