@@ -117,7 +117,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightBlend: 0.3
+    - _HeightBlend: 0.66
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -145,6 +145,6 @@ Material:
     - _FarColor: {r: 0.050687056, g: 0.4264151, b: 0.122330435, a: 1}
     - _InnerColor: {r: 0.1764706, g: 0.29803923, b: 0.23137255, a: 1}
     - _NearFarRange: {r: 10, g: 25, b: 0, a: 0}
-    - _Near_Color: {r: 0.27133515, g: 0.5773585, b: 0.12091848, a: 1}
+    - _Near_Color: {r: 0.45878664, g: 0.5764706, b: 0.12156862, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
