@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Splines;
 
 public class Wire : MonoBehaviour
 {
-    [SerializeField] private List<MeshRenderer> renderers;
-    [SerializeField] private Material poweredMat;
-    [SerializeField] private Material unpoweredMat;
+    [SerializeField] private GameObject poweredObj;
+    [SerializeField] private GameObject unpoweredObj;
 
     [SerializeField] private CoilElectrified parent;
 
@@ -30,17 +30,16 @@ public class Wire : MonoBehaviour
     private void UpdateMaterials()
     {
         poweredStored = powered;
-        foreach (MeshRenderer r in renderers)
+        if (powered == false)
         {
-            Material[] storedMats = r.materials;
+            poweredObj.SetActive(false);
+            unpoweredObj.SetActive(true);
+        }
 
-            if (powered == false)
-            storedMats[1] = unpoweredMat;
-
-            else if (powered)
-                storedMats[1] = poweredMat;
-
-            r.materials = storedMats;
+        else if (powered)
+        {
+            poweredObj.SetActive(true);
+            unpoweredObj.SetActive(false);
         }
     }
 }
