@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Support\BallHolderHeight.cs" />
     <Compile Include="Assets\Scripts\Support\CoilElectrified.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\RobotBehavior.cs" />
     <Compile Include="Assets\Scripts\Support\LaunchpadTop.cs" />
     <Compile Include="Assets\Scripts\Support\Wire.cs" />
     <Compile Include="Assets\Scripts\Support\GetMedian.cs" />
