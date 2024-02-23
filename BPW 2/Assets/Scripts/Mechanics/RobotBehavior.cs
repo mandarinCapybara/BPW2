@@ -20,10 +20,22 @@ public class RobotBehavior : MonoBehaviour
     [SerializeField] private Transform nuzzleR;
     [SerializeField] private Transform eyeL;
     [SerializeField] private Transform eyeR;
+    [SerializeField] private Transform neck;
+
+    [SerializeField] private Animator animator;
+    
 
     private void Update()
     {
         ScanPlayer();
+
+        if (debugMode)
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                StartCoroutine(Shoot());
+            }
+        }
     }
 
     private void ScanPlayer()
@@ -42,5 +54,13 @@ public class RobotBehavior : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, scanDistance);
         }
+    }
+
+    private IEnumerator Shoot()
+    {
+        neck.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
+        animator.SetBool("Shoot", true);
+        yield return new WaitForSeconds(0.1f);
+        animator.SetBool("Shoot", false);
     }
 }
