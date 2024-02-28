@@ -134,7 +134,10 @@ public class ElectricityNeighbors : MonoBehaviour
 
             if (Physics.Linecast(hb.StartPosition, hb.EndPosition, out RaycastHit hit, shockMask))
             {
-                Debug.Log(hit.transform.name);
+                if (hit.transform.GetComponent<Player>())
+                {
+                    hit.transform.GetComponent<Player>().Respawn();
+                }
             }
 
         }

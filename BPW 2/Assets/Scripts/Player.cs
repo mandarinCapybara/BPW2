@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -6,6 +7,8 @@ public class Player : MonoBehaviour
     public bool freezePlayer;
 
     KeyboardInput playerInput;
+
+    [SerializeField] private Transform respawnPoint;
 
     [Header("Camera")]
     [SerializeField] private Transform cameraTarget;
@@ -52,6 +55,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         SetupCamera();
     }
 
@@ -69,8 +73,6 @@ public class Player : MonoBehaviour
             Application.Quit();
         }
 
-        Cursor.lockState = CursorLockMode.Locked; 
-        
         if (!freezePlayer)
         {
             if (playerInput.Player.Walk != null)
@@ -189,6 +191,20 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
+
+    public void UpdateRespawnPoint(Transform newRespawnPoint)
+    {
+        respawnPoint = newRespawnPoint;
+    }
+
+    public void Respawn()
+    {
+        try
+        {
+           transform.position = respawnPoint.position;
+        }
+        catch { Debug.LogWarning("No respawn point set");  }
+    }
 
     private IEnumerator TimeswitchAnimation()
     {

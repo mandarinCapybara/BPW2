@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -16,11 +15,19 @@ public class RobotBehavior : MonoBehaviour
 
     [SerializeField] private RobotState currentState;
     [SerializeField] private float scanDistance;
+
     [SerializeField] private Transform nuzzleL;
     [SerializeField] private Transform nuzzleR;
+
+    [SerializeField] private LineRenderer lineA;
+    [SerializeField] private LineRenderer lineB;
+    private float lineWidth = 0.002f;
+
     [SerializeField] private Transform eyeL;
     [SerializeField] private Transform eyeR;
+
     [SerializeField] private Transform neck;
+    [SerializeField] private Transform head;
     [SerializeField] private LayerMask mask;
 
     [SerializeField] private Animator animator;
@@ -29,6 +36,18 @@ public class RobotBehavior : MonoBehaviour
 
     private bool canAttack = true;
     private bool lowerNeckWeight;
+    private bool drawLines = false;
+    private GameObject player;
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        lineA.widthMultiplier = lineWidth;
+        lineA.positionCount = 2;
+
+        lineB.widthMultiplier = lineWidth;
+        lineB.positionCount = 2;
+
+    }
 
     private void UpdateState(RobotState state)
     {
@@ -37,6 +56,28 @@ public class RobotBehavior : MonoBehaviour
 
     private void Update()
     {
+        if (drawLines)
+        {
+            lineA.widthMultiplier += Time.deltaTime * 0.01f;
+            lineA.SetPosition(0, nuzzleL.position);
+            lineA.SetPosition(1, player.transform.position);
+
+            lineB.widthMultiplier += Time.deltaTime * 0.01f;
+            lineB.SetPosition(0, nuzzleR.position);
+            lineB.SetPosition(1, player.transform.position);
+        }
+        else
+        {
+            lineA.widthMultiplier = lineWidth;
+            lineB.widthMultiplier = lineWidth;
+
+            lineA.SetPosition(0, nuzzleL.position);
+            lineA.SetPosition(1, nuzzleL.position);
+
+            lineB.SetPosition(0, nuzzleR.position);
+            lineB.SetPosition(1, nuzzleR.position);
+        }
+
         ScanPlayer();
 
         if (debugMode)
@@ -59,7 +100,7 @@ public class RobotBehavior : MonoBehaviour
 
     private void ScanPlayer()
     {
-        if(currentState != RobotState.Attack && canAttack)
+        if (currentState != RobotState.Attack && canAttack)
         {
             if (debugMode)
             {
@@ -95,14 +136,37 @@ public class RobotBehavior : MonoBehaviour
         }
     }
 
+    private void ScanPlayer(Vector3 endPos)
+    {
+        if(Physics.Linecast(head.transform.position, endPos, mask))
+        {
+            player.GetComponent<Player>().Respawn();
+        }
+    }
+
+    private void OnDisable()
+    {
+        drawLines = false;
+        canAttack = true;
+        lowerNeckWeight = true;
+        UpdateState(RobotState.Idle);
+        animator.SetBool("Shoot", false);
+        vfxAnimator.SetBool("Shoot", false);
+    }
+
     private IEnumerator Shoot()
     {
         canAttack = false;
-        neck.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
         neckConstraint.weight = 1;
         animator.SetBool("Shoot", true);
         vfxAnimator.SetBool("Shoot", true);
-        yield return new WaitForSeconds(2.8f);
+        yield return new WaitForSeconds(0.5f);
+        drawLines = true;
+        yield return new WaitForSeconds(1.9f);
+        drawLines = false;
+        Vector3 storedPos = player.transform.position;
+        yield return new WaitForSeconds(0.1f);
+        ScanPlayer(storedPos);
         animator.SetBool("Shoot", false);
         vfxAnimator.SetBool("Shoot", false);
         lowerNeckWeight = true;
