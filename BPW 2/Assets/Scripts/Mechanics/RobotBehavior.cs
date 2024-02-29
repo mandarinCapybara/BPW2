@@ -32,6 +32,7 @@ public class RobotBehavior : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] private Animator vfxAnimator;
+    [SerializeField] private Animator shaderAnimator;
     [SerializeField] private MultiAimConstraint neckConstraint;
 
     private bool canAttack = true;
@@ -151,6 +152,7 @@ public class RobotBehavior : MonoBehaviour
         lowerNeckWeight = true;
         UpdateState(RobotState.Idle);
         animator.SetBool("Shoot", false);
+        shaderAnimator.SetBool("Shoot", false);
         vfxAnimator.SetBool("Shoot", false);
     }
 
@@ -159,6 +161,7 @@ public class RobotBehavior : MonoBehaviour
         canAttack = false;
         neckConstraint.weight = 1;
         animator.SetBool("Shoot", true);
+        shaderAnimator.SetBool("Shoot", true);
         vfxAnimator.SetBool("Shoot", true);
         yield return new WaitForSeconds(0.5f);
         drawLines = true;
@@ -168,6 +171,7 @@ public class RobotBehavior : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         ScanPlayer(storedPos);
         animator.SetBool("Shoot", false);
+        shaderAnimator.SetBool("Shoot", false);
         vfxAnimator.SetBool("Shoot", false);
         lowerNeckWeight = true;
         UpdateState(RobotState.Idle);

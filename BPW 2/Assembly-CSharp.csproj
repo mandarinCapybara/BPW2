@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Support\LaunchpadTop.cs" />
     <Compile Include="Assets\Scripts\Support\EnemyTarget.cs" />
     <Compile Include="Assets\Scripts\Support\Wire.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\Door.cs" />
     <Compile Include="Assets\Scripts\Support\GetMedian.cs" />
     <Compile Include="Assets\Scripts\Support\SetChainLength.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />

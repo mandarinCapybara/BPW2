@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b17d20b902fc0554e9c8f2e5a991e9d8
+guid: af60328f7f925c141bc2d5b9ff52f456
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,28 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Copper
-    second: {fileID: 2100000, guid: 6aef036504142f347b8a6625134feb3c, type: 2}
+      name: DoorDoor
+    second: {fileID: 2100000, guid: 1643caf8336b4ea488e38a0808fbf298, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: LEDA
-    second: {fileID: 2100000, guid: 6ec8af738fca5c14cba35265d06a5f1b, type: 2}
+      name: DoorRim_2
+    second: {fileID: 2100000, guid: 840fd19a59e6d3d41a7dc2dcf65cdd59, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: LED_EYE
-    second: {fileID: 2100000, guid: ccf7cd182a2dc4743add1244f436074f, type: 2}
+      name: DoorRim_Copper
+    second: {fileID: 2100000, guid: c39241cfe0bd5f041b5241fce0fc1388, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Robot
-    second: {fileID: 2100000, guid: 4775d2f561d466e4b89744ec89c865fa, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Scope
-    second: {fileID: 2100000, guid: 1bd592564ff98cb4588139a61b007c03, type: 2}
+      name: LED_Strip
+    second: {fileID: 2100000, guid: 15bbef28b20052a47b8623cf541563d5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -56,36 +51,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Idle
-      takeName: Armature|ArmatureAction
-      internalID: 4781951162920444690
-      firstFrame: 0
-      lastFrame: 320
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
