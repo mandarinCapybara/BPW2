@@ -54,7 +54,7 @@ public class ElectricityNeighbors : MonoBehaviour
                 if (!neighbors.Contains(g))
                 {
                     bool found = false;
-                    if(nodes != null)
+                    if (nodes != null)
                     {
                         foreach (NeighborNodes n in nodes)
                         {
@@ -88,25 +88,25 @@ public class ElectricityNeighbors : MonoBehaviour
 
     private void Update()
     {
-        if(nodes != null)
-        foreach (NeighborNodes n in nodes)
-        {
-            if (n.currentNode.transform.position != n.storedPosition)
+        if (nodes != null)
+            foreach (NeighborNodes n in nodes)
             {
-                CalculateElectricity();
+                if (n.currentNode.transform.position != n.storedPosition)
+                {
+                    CalculateElectricity();
+                }
             }
-        }
 
-        
+
 
         if (debugMode && Input.GetKeyDown(KeyCode.Space))
         {
             SetElectricity(!electrify);
         }
 
-        if(connectedWire != null)
+        if (connectedWire != null)
         {
-            if(storedElectrify != connectedWire.IsPowered())
+            if (storedElectrify != connectedWire.IsPowered())
                 SetElectricity(connectedWire.IsPowered());
         }
     }
@@ -148,11 +148,11 @@ public class ElectricityNeighbors : MonoBehaviour
         ClearElectricityObjects();
         SetHitboxes(new List<ElectricityHitbox>());
 
-        if(nodes != null)
+        if (nodes != null)
         {
-            foreach(NeighborNodes n in nodes)
+            foreach (NeighborNodes n in nodes)
             {
-                if(n.currentNode.GetComponent<CoilElectrified>() != null)
+                if (n.currentNode.GetComponent<CoilElectrified>() != null)
                 {
                     n.currentNode.GetComponent<CoilElectrified>().SetElectified(false);
                 }
@@ -178,6 +178,15 @@ public class ElectricityNeighbors : MonoBehaviour
         if (n.currentNode.GetComponent<CoilElectrified>() != null)
         {
             n.currentNode.GetComponent<CoilElectrified>().SetElectified(true);
+            if (n.currentNode.GetComponent<CoilElectrified>().child != null)
+            {
+                NeighborNodes n2 = new NeighborNodes();
+                nodes.Add(n2);
+                n2.mainSystem = this;
+                n2.currentNode = n.currentNode.GetComponent<CoilElectrified>().child.gameObject;
+                n2.SetStoredPosition();
+                n2.GetNewNeighbors();
+            }
         }
 
         n.GetNewNeighbors();
