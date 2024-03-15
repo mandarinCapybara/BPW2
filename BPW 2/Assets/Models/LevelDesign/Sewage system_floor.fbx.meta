@@ -9,6 +9,16 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Bricks
     second: {fileID: 2100000, guid: 76cbe046322723a4e8263ceaf1c57d93, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PipesV2
+    second: {fileID: 2100000, guid: 0a7f0bbd6afec5b418a955c79f4c78b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallsTopBaked
+    second: {fileID: 2100000, guid: 8f3392818e47d1241b140a77d4d5b983, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
