@@ -14,6 +14,19 @@ public class BallHolderHeight : MonoBehaviour
     [SerializeField] private Transform pole;
     [SerializeField] private Transform ballHolder;
 
+    [SerializeField] private HeightMode settings;
+
+    [SerializeField] private float minHeight, maxHeight;
+    bool toMax = true;
+    private float delay = 2;
+
+    private enum HeightMode
+    {
+        Static,
+        Dynamic,
+        Switch
+    }
+
     private void Start()
     {
         UpdatePole();
@@ -21,9 +34,54 @@ public class BallHolderHeight : MonoBehaviour
 
     private void Update()
     {
-        if(height != storedHeight)
+        switch (settings)
         {
-            UpdatePole();
+            case HeightMode.Static:
+                break;
+            case HeightMode.Dynamic:
+                if (delay <= 0)
+                {
+                    if (toMax)
+                    {
+                        if (height < maxHeight)
+                        {
+                            height += Time.deltaTime * 10;
+                        }
+                        else
+                        {
+                            delay = 2;
+                            toMax = false;
+                        }
+                    }
+                    else
+                    {
+                        if (height > minHeight)
+                        {
+                            height -= Time.deltaTime * 10;
+                        }
+                        else
+                        {
+                            delay = 2;
+                            toMax = true;
+                        }
+                    }
+                }
+                else
+                {
+                    delay -= Time.deltaTime;
+                }
+
+                if (height != storedHeight)
+                {
+                    UpdatePole();
+                }
+                break;
+            case HeightMode.Switch:
+                if (height != storedHeight)
+                {
+                    UpdatePole();
+                }
+                break;
         }
     }
 
