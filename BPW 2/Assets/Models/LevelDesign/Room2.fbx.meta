@@ -3,7 +3,32 @@ guid: 532473523e672d045ab8baa56bf49556
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CopperRim
+    second: {fileID: 2100000, guid: 6aef036504142f347b8a6625134feb3c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CopperRim2
+    second: {fileID: 2100000, guid: e8f6ddf1b380f814d88253eb222b0382, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CopperRim3
+    second: {fileID: 2100000, guid: 5d1a1125049025b4a935d8c5a7c2f197, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roofing Baked
+    second: {fileID: 2100000, guid: dc3ab0b1f7a493d4aa0e63c1ac4c3894, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallsBaked
+    second: {fileID: 2100000, guid: 54d296256179e514596c8260c92b88fa, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
