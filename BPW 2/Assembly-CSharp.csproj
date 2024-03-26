@@ -66,6 +66,7 @@
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Mechanics\RobotBehavior.cs" />
     <Compile Include="Assets\Scripts\Support\LaunchpadTop.cs" />
+    <Compile Include="Assets\Scripts\MoveBetweenPoints.cs" />
     <Compile Include="Assets\Scripts\Support\EnemyTarget.cs" />
     <Compile Include="Assets\Scripts\Support\Wire.cs" />
     <Compile Include="Assets\Scripts\Mechanics\Door.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\KeyboardInput.cs" />
     <Compile Include="Assets\Scripts\Mechanics\ElectricityNeighbors.cs" />
     <Compile Include="Assets\Scripts\Mechanics\TimeManager.cs" />
+    <Compile Include="Assets\Scripts\Deathbox.cs" />
     <Compile Include="Assets\Scripts\EnableAtDistance.cs" />
   </ItemGroup>
   <ItemGroup>
