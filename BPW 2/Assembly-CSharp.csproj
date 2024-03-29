@@ -60,11 +60,13 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\LeverControls.cs" />
     <Compile Include="Assets\Scripts\Mechanics\Launchpad.cs" />
     <Compile Include="Assets\Scripts\Support\BallHolderHeight.cs" />
     <Compile Include="Assets\Scripts\Support\CoilElectrified.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Mechanics\RobotBehavior.cs" />
+    <Compile Include="Assets\Scripts\CogLogic.cs" />
     <Compile Include="Assets\Scripts\Support\LaunchpadTop.cs" />
     <Compile Include="Assets\Scripts\MoveBetweenPoints.cs" />
     <Compile Include="Assets\Scripts\Support\EnemyTarget.cs" />
