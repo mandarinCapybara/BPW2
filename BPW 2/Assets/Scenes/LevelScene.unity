@@ -2032,7 +2032,7 @@ PrefabInstance:
     - target: {fileID: 8066861747610299626, guid: 9198dbbdce3bf134cb5dd724470b2601,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3152,7 +3152,7 @@ MonoBehaviour:
   - {fileID: 1723926362}
   - {fileID: 1291521646}
   checkTime: 0.5
-  renderDistance: 10
+  renderDistance: 20
 --- !u!1 &259153886
 GameObject:
   m_ObjectHideFlags: 0
@@ -6772,7 +6772,7 @@ PrefabInstance:
     - target: {fileID: 8066861747610299626, guid: 9198dbbdce3bf134cb5dd724470b2601,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10506,7 +10506,7 @@ PrefabInstance:
     - target: {fileID: 8066861747610299626, guid: 9198dbbdce3bf134cb5dd724470b2601,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19519,7 +19519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1158128069
 Transform:
   m_ObjectHideFlags: 0
@@ -21306,7 +21306,7 @@ PrefabInstance:
     - target: {fileID: 8066861747610299626, guid: 9198dbbdce3bf134cb5dd724470b2601,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25265,7 +25265,7 @@ PrefabInstance:
     - target: {fileID: 8066861747610299626, guid: 9198dbbdce3bf134cb5dd724470b2601,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25950,7 +25950,7 @@ PrefabInstance:
     - target: {fileID: 8066861747610299626, guid: 9198dbbdce3bf134cb5dd724470b2601,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28114,7 +28114,7 @@ PrefabInstance:
     - target: {fileID: 1380931240576610376, guid: 143aa41a43d630e43b81df23d83d6550,
         type: 3}
       propertyPath: walkSpeed
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1380931240576610376, guid: 143aa41a43d630e43b81df23d83d6550,
         type: 3}
@@ -32912,12 +32912,12 @@ PrefabInstance:
     - target: {fileID: 3032109781152763144, guid: 337259429290ccb4e85a889794a0da68,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8260941858891268425, guid: 337259429290ccb4e85a889794a0da68,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8941552186395599894, guid: 337259429290ccb4e85a889794a0da68,
         type: 3}
@@ -33298,7 +33298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1978897496
 Transform:
   m_ObjectHideFlags: 0
@@ -34294,12 +34294,12 @@ PrefabInstance:
     - target: {fileID: 3032109781152763144, guid: 337259429290ccb4e85a889794a0da68,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8260941858891268425, guid: 337259429290ccb4e85a889794a0da68,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37988,7 +37988,7 @@ PrefabInstance:
     - target: {fileID: 8066861747610299626, guid: 9198dbbdce3bf134cb5dd724470b2601,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
