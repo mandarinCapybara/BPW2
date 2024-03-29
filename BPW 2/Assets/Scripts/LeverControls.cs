@@ -8,20 +8,28 @@ public class LeverControls : MonoBehaviour
     Transform player;
 
     [SerializeField] private CogLogic logic;
+    [SerializeField] private ElectricityNeighbors electricity;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    bool on;
     private void Update()
     {
-        if(Vector3.Distance(transform.position, player.position) < 3f)
+        GetComponent<Animator>().SetBool("On", on);
+        if (Vector3.Distance(transform.position, player.position) < 3f)
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                logic.SwitchState();
-                GetComponent<Animator>().SetBool("On", !GetComponent<Animator>().GetBool("On"));
+                if (on)
+                    on = false;
+                else on = true;
+
+                if(logic != null) logic.SwitchState();
+                if (electricity != null) electricity.SetElectricity(on);
+
             }
         }
     }
